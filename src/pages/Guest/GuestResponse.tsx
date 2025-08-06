@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getGuest, respondGuest } from '../../services/api';
+import { getGuest, GuestStatus, respondGuest } from '../../services/api';
 import './GuestResponse.css';
 
 export function GuestResponse() {
@@ -14,9 +14,17 @@ export function GuestResponse() {
     console.log('Fetching guest with ID:', id);
     if (!id) return;
     getGuest(id)
-      .then((res) => setGuest(res.data))
+      .then((res) => {
+        if (res.data?.status === GuestStatus.DECLINED)
+          navigate('/guest/rejected');
+        if (res.data?.status === GuestStatus.CONFIRMED)
+          navigate('/guest/qr', { state: { qrCode: res.data.qrCode } });
+        if (res.data?.status === GuestStatus.PRESENT_AT_EVENT)
+          navigate('/guest/enjoy');
+        setGuest(res.data);
+      })
       .finally(() => setLoading(false));
-  }, [id]);
+  }, [id, navigate]);
 
   const handleResponse = async (confirmed: boolean) => {
     const response = await respondGuest(id!, confirmed);
@@ -33,9 +41,14 @@ export function GuestResponse() {
   return (
     <div className="guest-response-container">
       <h1 className="guest-response-title">{guest.title}</h1>
-      <p className="guest-response-names">
-        Convidados: {guest.names.join(', ')}
-      </p>
+      <div>
+        <p className="guest-response-names">Convidados:</p>
+        <ul className="name-list">
+          {guest.names.map((name: string, i: number) => (
+            <li key={i}>{name}</li>
+          ))}
+        </ul>
+      </div>
       <div className="guest-response-buttons">
         <button onClick={() => handleResponse(true)}>✅ Confirmar</button>
         <button onClick={() => handleResponse(false)}>❌ Recusar</button>

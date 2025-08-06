@@ -1,11 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useRef, useState } from 'react';
 import jsQR from 'jsqr';
-import './QrCodeScanner.css'; // Importa o CSS que criamos abaixo
+import './QrCodeScanner.css';
 
 export function QRCodeReaderJSQR() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [scannedData, setScannedData] = useState<any>(null);
 
   useEffect(() => {
@@ -17,12 +17,13 @@ export function QRCodeReaderJSQR() {
         stream = await navigator.mediaDevices.getUserMedia({
           video: { facingMode: 'environment' },
         });
+
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
           videoRef.current.setAttribute('playsinline', 'true');
           await videoRef.current.play();
 
-          const tick = () => {
+          const tick = async () => {
             if (videoRef.current && canvasRef.current) {
               const width = videoRef.current.videoWidth;
               const height = videoRef.current.videoHeight;
@@ -38,11 +39,30 @@ export function QRCodeReaderJSQR() {
                 if (code) {
                   try {
                     const data = JSON.parse(code.data);
-                    setScannedData(data);
+
+                    const response = await fetch(
+                      `https://gestaocasamento-production.up.railway.app/api/guests/confirm-present/${data.id}`,
+                      {
+                        method: 'POST',
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                      },
+                    );
+
+                    const result = await response.json();
+
+                    setScannedData({
+                      ...data,
+                      status: response.ok ? 'success' : 'error',
+                      message:
+                        result.message || result.error || 'Erro desconhecido',
+                    });
+
                     stopCamera();
                     return;
                   } catch (e) {
-                    console.error('Erro ao decodificar JSON:', e);
+                    console.error('Erro ao processar QR:', e);
                   }
                 }
               }
@@ -99,6 +119,14 @@ export function QRCodeReaderJSQR() {
           </div>
           <div className="qr-result-line">
             <strong>Quantidade:</strong> {scannedData.quantity}
+          </div>
+
+          <div className="qr-result-message" style={{ marginTop: 10 }}>
+            {scannedData.status === 'success' ? (
+              <p style={{ color: 'green' }}>{scannedData.message}</p>
+            ) : (
+              <p style={{ color: 'red' }}>{scannedData.message}</p>
+            )}
           </div>
 
           <button className="qr-button" onClick={handleRestart}>

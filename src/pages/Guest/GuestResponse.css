@@ -1,20 +1,22 @@
 .guest-response-container {
-  max-width: 480px;
-  margin: 2rem auto;
-  padding: 1rem;
-  text-align: center;
-  font-family: sans-serif;
+  width: 90%;
+  max-width: 400px; /* Define um limite de largura */
+  margin: 1.5rem auto; /* Centraliza horizontalmente */
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  text-align: left;
+  color: #000;
 }
 
 .guest-response-title {
   font-size: 2rem;
-  margin-bottom: 1rem;
   word-wrap: break-word;
 }
 
 .guest-response-names {
   font-size: 1.1rem;
-  margin-bottom: 2rem;
   word-wrap: break-word;
 }
 
