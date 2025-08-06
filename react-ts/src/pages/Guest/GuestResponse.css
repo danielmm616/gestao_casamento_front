@@ -1,0 +1,64 @@
+.guest-response-container {
+  max-width: 480px;
+  margin: 2rem auto;
+  padding: 1rem;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.guest-response-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  word-wrap: break-word;
+}
+
+.guest-response-names {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  word-wrap: break-word;
+}
+
+.guest-response-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.guest-response-buttons button {
+  flex: 1 1 120px;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 6px;
+  border: none;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.guest-response-buttons button:first-child {
+  background-color: #2563eb; /* azul */
+}
+
+.guest-response-buttons button:first-child:hover {
+  background-color: #1d4ed8;
+}
+
+.guest-response-buttons button:last-child {
+  background-color: #dc2626; /* vermelho */
+}
+
+.guest-response-buttons button:last-child:hover {
+  background-color: #b91c1c;
+}
+
+@media (max-width: 400px) {
+  .guest-response-buttons {
+    flex-direction: column;
+  }
+
+  .guest-response-buttons button {
+    flex: none;
+    width: 100%;
+  }
+}
