@@ -15,10 +15,10 @@ export default function Router() {
       <Routes>
         {/* Rotas públicas */}
         <Route path="/guest/:id" element={<GuestResponse />} />
-        <Route path="/guest/qr" element={<QrCodePage />} />
-        <Route path="/guest/rejected" element={<RejectedPage />} />
-        <Route path="/guest/scanner" element={<ScannerPage />} />
-        <Route path="/guest/enjoy" element={<EnjoyParty />} />
+        <Route path="/guest-info/qr" element={<QrCodePage />} />
+        <Route path="/guest-info/rejected" element={<RejectedPage />} />
+        <Route path="/guest-info/enjoy" element={<EnjoyParty />} />
+        <Route path="/guest-info/scanner" element={<ScannerPage />} />
 
         {/* Admin */}
         <Route path="/admin/login" element={<LoginPage />} />

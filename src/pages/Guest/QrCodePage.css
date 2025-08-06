@@ -1,0 +1,51 @@
+.qr-code-container {
+  width: 90%;
+  max-width: 280px;
+  margin: 1.5rem auto;
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  text-align: left;
+  color: #000;
+  min-width: 250px;
+}
+
+.qr-code-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.qr-code-download {
+  display: flex;
+  align-items: center;
+}
+
+.qr-code-download a {
+  color: #5528be;
+  text-decoration: underline;
+  margin-left: 0.4rem;
+}
+
+.qr-code-date {
+  display: flex;
+  align-items: center;
+  color: #000;
+}
+
+.qr-code-date p {
+  margin-left: 0.4rem;
+}
+
+.qr-code-response-location {
+  display: flex;
+  align-items: center;
+  height: fit-content;
+}
+
+.qr-code-response-location a {
+  color: #2830be;
+  text-decoration: underline;
+  margin-left: 0.4rem;
+}

@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import jsQR from 'jsqr';
 import './QrCodeScanner.css';
+import { confirmPresenceAtEvent } from '../services/api';
 
 export function QRCodeReaderJSQR() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -40,23 +41,15 @@ export function QRCodeReaderJSQR() {
                   try {
                     const data = JSON.parse(code.data);
 
-                    const response = await fetch(
-                      `https://gestaocasamento-production.up.railway.app/api/guests/confirm-present/${data.id}`,
-                      {
-                        method: 'POST',
-                        headers: {
-                          'Content-Type': 'application/json',
-                        },
-                      },
-                    );
-
-                    const result = await response.json();
+                    const response = await confirmPresenceAtEvent(data.id);
 
                     setScannedData({
                       ...data,
-                      status: response.ok ? 'success' : 'error',
+                      status: response.error ? 'error' : 'success',
                       message:
-                        result.message || result.error || 'Erro desconhecido',
+                        response.data?.message ||
+                        response.data?.error ||
+                        'Erro desconhecido',
                     });
 
                     stopCamera();

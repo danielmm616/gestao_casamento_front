@@ -1,13 +1,14 @@
 .guest-response-container {
   width: 90%;
-  max-width: 400px; /* Define um limite de largura */
-  margin: 1.5rem auto; /* Centraliza horizontalmente */
+  max-width: 280px;
+  margin: 1.5rem auto;
   background-color: #ffffff;
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 1.5rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   text-align: left;
   color: #000;
+  min-width: 250px;
 }
 
 .guest-response-title {
@@ -18,17 +19,33 @@
 .guest-response-names {
   font-size: 1.1rem;
   word-wrap: break-word;
+  font-weight: bold;
+}
+
+.guest-response-location {
+  display: flex;
+  align-items: center;
+  height: fit-content;
+  font-weight: bold;
+  margin: 0 0 20px 0;
+}
+
+.guest-response-location a {
+  color: #2830be;
+  text-decoration: underline;
+  margin-left: 0.4rem;
 }
 
 .guest-response-buttons {
   display: flex;
   justify-content: center;
+  flex-direction: column;
+
   gap: 1rem;
   flex-wrap: wrap;
 }
 
 .guest-response-buttons button {
-  flex: 1 1 120px;
   padding: 0.8rem 1rem;
   font-size: 1rem;
   cursor: pointer;
@@ -36,31 +53,50 @@
   border: none;
   color: white;
   transition: background-color 0.3s ease;
+  flex: none;
+  width: 100%;
 }
 
 .guest-response-buttons button:first-child {
-  background-color: #2563eb; /* azul */
+  background-color: #f2c64e;
+  color: #fff;
+  font-weight: bold;
 }
 
 .guest-response-buttons button:first-child:hover {
-  background-color: #1d4ed8;
+  background-color: #c09a31;
+  color: #fff;
 }
 
 .guest-response-buttons button:last-child {
-  background-color: #dc2626; /* vermelho */
+  background-color: #a11818;
+  color: #fff;
+  font-weight: bold;
 }
 
 .guest-response-buttons button:last-child:hover {
-  background-color: #b91c1c;
+  background-color: #8a1212;
+  color: #fff;
 }
 
-@media (max-width: 400px) {
-  .guest-response-buttons {
-    flex-direction: column;
-  }
+.space-y-1 {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
-  .guest-response-buttons button {
-    flex: none;
-    width: 100%;
-  }
+.space-y-1 li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.guest-response-date {
+  display: flex;
+  align-items: center;
+  color: #000;
+}
+
+.guest-response-date p {
+  margin-left: 0.4rem;
 }
