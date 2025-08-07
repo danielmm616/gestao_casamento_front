@@ -4,7 +4,7 @@ import jsQR from 'jsqr';
 import './QrCodeScanner.css';
 import { confirmPresenceAtEvent } from '../services/api';
 import { User } from 'lucide-react';
-import logo from '../../assets/logo.png';
+import logo from '../assets/logo.png';
 
 export function QRCodeReaderJSQR() {
   const videoRef = useRef<HTMLVideoElement>(null);
