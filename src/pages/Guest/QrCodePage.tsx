@@ -2,6 +2,7 @@ import { useLocation } from 'react-router-dom';
 import { ImageDown, CalendarCheck, MapPin } from 'lucide-react';
 import './QrCodePage.css';
 import { useEffect } from 'react';
+import logo from '../../assets/logo.png';
 
 export function QrCodePage() {
   const location = useLocation();
@@ -18,7 +19,7 @@ export function QrCodePage() {
       <div style={{ width: '100%', textAlign: 'center' }}>
         <img
           className="guest-response-image"
-          src={'/src/assets/logo.png'}
+          src={logo}
           alt={`logo.png`}
           style={{ maxWidth: '90%', maxHeight: '150px', margin: '0 auto' }}
         />

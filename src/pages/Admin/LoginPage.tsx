@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginAdmin } from '../../services/api';
 import './LoginPage.css';
+import logo from '../../assets/logo.png';
 
 export function LoginPage() {
   const [email, setEmail] = useState('');
@@ -30,7 +31,7 @@ export function LoginPage() {
       <div style={{ width: '100%', textAlign: 'center' }}>
         <img
           className="guest-response-image"
-          src={'/src/assets/logo.png'}
+          src={logo}
           alt={`logo.png`}
           style={{ maxWidth: '90%', maxHeight: '150px', margin: '0 auto' }}
         />

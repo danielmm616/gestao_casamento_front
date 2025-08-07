@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import './RejectedResponse.css';
+import logo from '../../assets/logo.png';
 
 export function RejectedPage() {
   useEffect(() => {
@@ -11,7 +12,7 @@ export function RejectedPage() {
       <div style={{ width: '100%', textAlign: 'center' }}>
         <img
           className="guest-response-image"
-          src={'/src/assets/logo.png'}
+          src={logo}
           alt={`logo.png`}
           style={{ maxWidth: '90%', maxHeight: '150px', margin: '0 auto' }}
         />

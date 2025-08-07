@@ -5,6 +5,7 @@ import { GuestFormModal } from '../../Components/GuestFormModal';
 import { ConfirmDeleteModal } from '../../Components/ConfirmDeleteModal';
 import { Eye, Pencil, Trash2, PlusCircle } from 'lucide-react';
 import './AdminPanel.css';
+import logo from '../../assets/logo.png';
 
 export function AdminPanel() {
   const [guests, setGuests] = useState<any[]>([]);
@@ -36,7 +37,7 @@ export function AdminPanel() {
       <div style={{ width: '100%', textAlign: 'center' }}>
         <img
           className="guest-response-image"
-          src={'/src/assets/logo.png'}
+          src={logo}
           alt={`logo.png`}
           style={{
             maxWidth: '90%',
