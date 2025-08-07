@@ -51,7 +51,7 @@ export function GuestResponse() {
         />
       </div>
       <div>
-        <p className="guest-response-names">Convite recepção 30/01/2026</p>
+        <p className="guest-response-names">Convite recepção</p>
         <ul className="space-y-1">
           {guest.names.map((name: string, i: number) => (
             <li key={i} className="flex items-center gap-2">

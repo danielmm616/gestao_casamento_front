@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import jsQR from 'jsqr';
 import './QrCodeScanner.css';
 import { confirmPresenceAtEvent } from '../services/api';
+import { User } from 'lucide-react';
 
 export function QRCodeReaderJSQR() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -95,24 +96,15 @@ export function QRCodeReaderJSQR() {
         </div>
       ) : (
         <div className="qr-result-card">
-          <h3 className="qr-result-title">Convidado identificado</h3>
-
-          <div className="qr-result-line">
-            <strong>{scannedData.title}</strong>
+          <div style={{ width: '100%', textAlign: 'center' }}>
+            <img
+              className="guest-response-image"
+              src={'/src/assets/logo.png'}
+              alt={`logo.png`}
+              style={{ maxWidth: '90%', maxHeight: '150px', margin: '0 auto' }}
+            />
           </div>
-          <div className="qr-result-line">
-            <p>
-              <strong>Nomes:</strong>
-            </p>
-            <ul className="name-list">
-              {scannedData.names.map((name: string, i: number) => (
-                <li key={i}>{name}</li>
-              ))}
-            </ul>
-          </div>
-          <div className="qr-result-line">
-            <strong>Quantidade:</strong> {scannedData.quantity}
-          </div>
+          <h3 className="qr-result-title">Identificação convite</h3>
 
           <div className="qr-result-message" style={{ marginTop: 10 }}>
             {scannedData.status === 'success' ? (
@@ -121,7 +113,22 @@ export function QRCodeReaderJSQR() {
               <p style={{ color: 'red' }}>{scannedData.message}</p>
             )}
           </div>
-
+          <div className="qr-result-line">
+            <p style={{ margin: 0 }}>
+              <strong>Nomes:</strong>
+            </p>
+            <ul className="space-y-1">
+              {scannedData.names.map((name: string, i: number) => (
+                <li key={i} className="flex items-center gap-2">
+                  <User size={16} className="text-gray-500" />
+                  <span>{name}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="qr-result-line">
+            <strong>Quantidade:</strong> {scannedData.quantity}
+          </div>
           <button className="qr-button" onClick={handleRestart}>
             Escanear outro QR
           </button>
