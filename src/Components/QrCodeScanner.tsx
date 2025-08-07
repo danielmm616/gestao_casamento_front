@@ -4,6 +4,7 @@ import jsQR from 'jsqr';
 import './QrCodeScanner.css';
 import { confirmPresenceAtEvent } from '../services/api';
 import { User } from 'lucide-react';
+import logo from '../../assets/logo.png';
 
 export function QRCodeReaderJSQR() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -99,7 +100,7 @@ export function QRCodeReaderJSQR() {
           <div style={{ width: '100%', textAlign: 'center' }}>
             <img
               className="guest-response-image"
-              src={'/src/assets/logo.png'}
+              src={logo}
               alt={`logo.png`}
               style={{ maxWidth: '90%', maxHeight: '150px', margin: '0 auto' }}
             />
