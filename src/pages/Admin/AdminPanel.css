@@ -20,6 +20,9 @@
 .guest-list {
   list-style: none;
   width: 300px;
+  max-height: 300px; /* altura máxima que você deseja */
+  overflow-y: auto; /* ativa o scroll vertical quando passar do limite */
+  padding-right: 0.5rem;
 }
 
 .guest-item {
@@ -42,12 +45,6 @@
   transition: background-color 0.3s ease;
 }
 
-.guest-actions button:hover {
-  background-color: #f2c64e;
-  color: white;
-  border-color: #f2c64e;
-}
-
 .admin-add-button {
   display: flex;
   align-items: center;
@@ -59,4 +56,21 @@
   background-color: #f2c64e;
   color: white;
   border-color: #f2c64e;
+}
+
+.icon-button:hover {
+  background-color: #f2c64e;
+  color: white;
+  border-color: #f2c64e;
+}
+
+.guest-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.delete-button:hover {
+  background-color: #c22020;
+  color: white;
+  border-color: #c22020;
 }

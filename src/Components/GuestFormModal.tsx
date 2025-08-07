@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { createGuest, updateGuest } from '../services/api';
 import { GuestType } from '../services/api';
+import './GuestFormModal.css';
 
 type Guest = {
   id?: string;
@@ -31,7 +32,7 @@ export function GuestFormModal({ open, onClose, onSave, guest }: Props) {
       setType(GuestType.INDIVIDUAL);
       setNames(['']);
     }
-  }, [guest]);
+  }, [guest, open]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,35 +63,25 @@ export function GuestFormModal({ open, onClose, onSave, guest }: Props) {
   if (!open) return null;
 
   return (
-    <div style={overlayStyle}>
-      <div style={modalStyle}>
-        <h3>{guest ? 'Editar Convidado' : 'Novo Convidado'}</h3>
-        <form onSubmit={handleSubmit}>
+    <div className="overlayStyle">
+      <div className="modalStyle">
+        <h3>{guest ? 'Editar Convite' : 'Novo Convite'}</h3>
+        <form onSubmit={handleSubmit} className="formStyle">
+          <label>Titulo:</label>
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Título da família ou nome"
             required
           />
-          <br />
-          <label>
-            Tipo:
-            <select
-              value={type}
-              onChange={(e) => setType(Number(e.target.value))}
-            >
-              <option value={GuestType.INDIVIDUAL}>Individual</option>
-              <option value={GuestType.FAMILY}>Família</option>
-            </select>
-          </label>
-          <br />
           <label>Nomes:</label>
           {names.map((name, i) => (
-            <div key={i}>
+            <div key={i} className="name-input">
               <input
                 value={name}
                 onChange={(e) => handleNameChange(i, e.target.value)}
                 required
+                placeholder="Nome do convidado"
               />
               {names.length > 1 && (
                 <button type="button" onClick={() => removeName(i)}>
@@ -99,12 +90,13 @@ export function GuestFormModal({ open, onClose, onSave, guest }: Props) {
               )}
             </div>
           ))}
-          <button type="button" onClick={addName}>
+          <button type="button" onClick={addName} className="form-button">
             + Adicionar nome
           </button>
-          <br />
-          <button type="submit">{guest ? 'Salvar' : 'Criar'}</button>
-          <button type="button" onClick={onClose}>
+          <button type="submit" className="form-button">
+            {guest ? 'Atualizar convite' : 'Criar convite'}
+          </button>
+          <button type="button" onClick={onClose} className="cancel-button">
             Cancelar
           </button>
         </form>
@@ -112,24 +104,3 @@ export function GuestFormModal({ open, onClose, onSave, guest }: Props) {
     </div>
   );
 }
-
-const overlayStyle: React.CSSProperties = {
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
-  backgroundColor: 'rgba(0,0,0,0.5)',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  zIndex: 1000,
-};
-
-const modalStyle: React.CSSProperties = {
-  backgroundColor: '#fff',
-  padding: 20,
-  borderRadius: 8,
-  width: '90%',
-  maxWidth: 400,
-};

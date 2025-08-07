@@ -1,0 +1,43 @@
+.overlayStyle {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalStyle {
+  background-color: '#fff';
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  gap: 10px;
+}
+
+.modalStyle button {
+  transition: background-color 0.3s ease;
+}
+
+.confirm-button:hover {
+  background-color: #c22020;
+  color: white;
+  border-color: #c22020;
+}
+
+.cancel-button:hover {
+  background-color: #f2c64e;
+  color: white;
+  border-color: #f2c64e;
+}

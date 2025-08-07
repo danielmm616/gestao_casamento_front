@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginAdmin } from '../../services/api';
 import './LoginPage.css';
@@ -8,6 +8,10 @@ export function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = 'D&R | Login Admin';
+  }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();

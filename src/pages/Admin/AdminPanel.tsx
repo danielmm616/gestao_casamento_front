@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from 'react';
-import { getGuests, deleteGuest } from '../../services/api';
+import { getGuests, deleteGuest, guestStatusMap } from '../../services/api';
 import { GuestFormModal } from '../../Components/GuestFormModal';
 import { ConfirmDeleteModal } from '../../Components/ConfirmDeleteModal';
 import { Eye, Pencil, Trash2, PlusCircle } from 'lucide-react';
@@ -16,6 +16,7 @@ export function AdminPanel() {
   // const [viewGuest, setViewGuest] = useState<any | null>(null);
 
   useEffect(() => {
+    document.title = 'D&R | Painel Admin';
     loadGuests();
   }, []);
 
@@ -47,6 +48,10 @@ export function AdminPanel() {
       </div>
       <div className="admin-header">
         <h2>Painel do Admin</h2>
+        <p>
+          Total de Convidados:{' '}
+          {guests?.map((g) => g.names.length).reduce((a, b) => a + b, 0)}
+        </p>
         <button
           className="admin-add-button"
           onClick={() => {
@@ -64,9 +69,10 @@ export function AdminPanel() {
         <ul className="guest-list">
           {guests.map((guest) => (
             <li className="guest-item" key={guest.id}>
-              <div>
-                <strong>{guest.title}</strong> <br />
-                <small> ({guest.names.length} pessoa(s))</small>
+              <div className="guest-info">
+                <strong>{guest.title}</strong>
+                <small> {guest.names.length} pessoa(s)</small>
+                <small>Status: {guestStatusMap.get(guest.status)}</small>
               </div>
               <div className="guest-actions">
                 <button
@@ -87,7 +93,7 @@ export function AdminPanel() {
                   <Pencil size={15} />
                 </button>
                 <button
-                  className="icon-button"
+                  className="delete-button"
                   title="Excluir"
                   onClick={() => {
                     setGuestToDelete(guest);

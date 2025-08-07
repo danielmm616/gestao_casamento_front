@@ -1,6 +1,11 @@
+import { useEffect } from 'react';
 import './GuestAtParty.css';
 
 export function EnjoyParty() {
+  useEffect(() => {
+    document.title = 'Aproveite a Festa! 🎉';
+  }, []);
+
   return (
     <div className="enjoy-party-container">
       <div style={{ width: '100%', textAlign: 'center' }}>

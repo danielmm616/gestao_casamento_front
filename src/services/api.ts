@@ -92,3 +92,10 @@ export const GuestStatus = {
   DECLINED: 3,
   PRESENT_AT_EVENT: 4,
 };
+
+export const guestStatusMap = new Map<number, string>([
+  [GuestStatus.PENDING, 'Pendente'],
+  [GuestStatus.CONFIRMED, 'Confirmado'],
+  [GuestStatus.DECLINED, 'Recusado'],
+  [GuestStatus.PRESENT_AT_EVENT, 'Presente no Evento'],
+]);
