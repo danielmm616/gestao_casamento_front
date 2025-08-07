@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginAdmin } from '../../services/api';
+import './LoginPage.css';
 
 export function LoginPage() {
   const [email, setEmail] = useState('');
@@ -21,9 +22,17 @@ export function LoginPage() {
   }
 
   return (
-    <div style={{ padding: 20 }}>
-      <h2>Login Admin</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="login-page-container">
+      <div style={{ width: '100%', textAlign: 'center' }}>
+        <img
+          className="guest-response-image"
+          src={'/src/assets/logo.png'}
+          alt={`logo.png`}
+          style={{ maxWidth: '90%', maxHeight: '150px', margin: '0 auto' }}
+        />
+      </div>
+      <h2>Painel Admin</h2>
+      <form onSubmit={handleSubmit} className="login-form">
         <input
           type="email"
           value={email}

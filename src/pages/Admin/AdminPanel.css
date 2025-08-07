@@ -1,0 +1,62 @@
+.admin-panel {
+  width: 350px;
+  margin: 1.5rem auto;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  text-align: left;
+  color: #000;
+  min-width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.admin-panel button {
+  background-color: #272622;
+  font-weight: bold;
+}
+
+.guest-list {
+  list-style: none;
+  width: 300px;
+}
+
+.guest-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+  margin-left: -30px;
+  margin-right: 10px;
+}
+
+.guest-actions {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.guest-actions button {
+  font-size: 9px;
+  transition: background-color 0.3s ease;
+}
+
+.guest-actions button:hover {
+  background-color: #f2c64e;
+  color: white;
+  border-color: #f2c64e;
+}
+
+.admin-add-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.admin-add-button:hover {
+  background-color: #f2c64e;
+  color: white;
+  border-color: #f2c64e;
+}
