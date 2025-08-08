@@ -70,3 +70,12 @@
   color: white;
   border-color: #c22020;
 }
+
+.formStyle select {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #e6e2df;
+  color: #333;
+}

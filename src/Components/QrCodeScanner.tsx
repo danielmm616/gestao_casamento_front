@@ -3,8 +3,8 @@ import { useEffect, useRef, useState } from 'react';
 import jsQR from 'jsqr';
 import './QrCodeScanner.css';
 import { confirmPresenceAtEvent } from '../services/api';
-import { User } from 'lucide-react';
-import logo from '../assets/logo.png';
+import { GuestNamesList } from './GuestNamesList';
+import { LogoHeader } from './LogoHeader';
 
 export function QRCodeReaderJSQR() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -97,14 +97,7 @@ export function QRCodeReaderJSQR() {
         </div>
       ) : (
         <div className="qr-result-card">
-          <div style={{ width: '100%', textAlign: 'center' }}>
-            <img
-              className="guest-response-image"
-              src={logo}
-              alt={`logo.png`}
-              style={{ maxWidth: '90%', maxHeight: '150px', margin: '0 auto' }}
-            />
-          </div>
+          <LogoHeader />
           <h3 className="qr-result-title">Identificação convite</h3>
 
           <div className="qr-result-message" style={{ marginTop: 10 }}>
@@ -118,14 +111,7 @@ export function QRCodeReaderJSQR() {
             <p style={{ margin: 0 }}>
               <strong>Nomes:</strong>
             </p>
-            <ul className="space-y-1">
-              {scannedData.names.map((name: string, i: number) => (
-                <li key={i} className="flex items-center gap-2">
-                  <User size={16} className="text-gray-500" />
-                  <span>{name}</span>
-                </li>
-              ))}
-            </ul>
+            <GuestNamesList names={scannedData.names} />
           </div>
           <div className="qr-result-line">
             <strong>Quantidade:</strong> {scannedData.quantity}

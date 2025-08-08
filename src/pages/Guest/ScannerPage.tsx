@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
-import { QRCodeReaderJSQR } from '../../Components/QrCodeScanner';
+import { QRCodeReaderJSQR } from '../../Components';
 
-export default function ScannerPage() {
+export function ScannerPage() {
   useEffect(() => {
     document.title = 'D&R | Scanner de QR Code';
   }, []);

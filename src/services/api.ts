@@ -59,10 +59,22 @@ export const confirmPresenceAtEvent = async (id: string) => {
 export const loginAdmin = (email: string, password: string) =>
   api.post('/admin/login', { email, password });
 
-export const getGuests = () =>
-  api.get('/guests', {
-    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-  });
+export const getGuests = async () => {
+  try {
+    const response = await api.get('/guests', {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    });
+    return response;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.status === 401) {
+      localStorage.removeItem('token');
+      window.location.href = '/admin/login';
+      throw new Error('Unauthorized access. Please log in again.');
+    }
+    console.error('Error fetching guests:', error);
+    throw error;
+  }
+};
 
 export const createGuest = (guestData: any) =>
   api.post('/guests', guestData, {
@@ -99,3 +111,15 @@ export const guestStatusMap = new Map<number, string>([
   [GuestStatus.DECLINED, 'Recusado'],
   [GuestStatus.PRESENT_AT_EVENT, 'Presente no Evento'],
 ]);
+
+export interface IGuest {
+  id: string;
+  title: string;
+  type: number;
+  names: string[];
+  quantity: number;
+  status: number;
+  createdAt: string;
+  updatedAt: string;
+  qrCode?: string;
+}

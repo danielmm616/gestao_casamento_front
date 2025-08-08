@@ -1,42 +1,39 @@
 import { useEffect, useState } from 'react';
-import { createGuest, updateGuest } from '../services/api';
-import { GuestType } from '../services/api';
+import {
+  createGuest,
+  GuestStatus,
+  updateGuest,
+  type IGuest,
+} from '../services/api';
 import './GuestFormModal.css';
-
-type Guest = {
-  id?: string;
-  title: string;
-  type: number;
-  names: string[];
-};
 
 type Props = {
   open: boolean;
   onClose: () => void;
   onSave: () => void;
-  guest?: Guest;
+  guest: IGuest | null;
 };
 
 export function GuestFormModal({ open, onClose, onSave, guest }: Props) {
   const [title, setTitle] = useState('');
-  const [type, setType] = useState(GuestType.INDIVIDUAL);
   const [names, setNames] = useState<string[]>(['']);
+  const [status, setStatus] = useState(GuestStatus.PENDING);
 
   useEffect(() => {
     if (guest) {
       setTitle(guest.title);
-      setType(guest.type);
       setNames(guest.names);
+      setStatus(guest.status);
     } else {
       setTitle('');
-      setType(GuestType.INDIVIDUAL);
       setNames(['']);
+      setStatus(GuestStatus.PENDING);
     }
   }, [guest, open]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const payload = { title, type, names: names.filter((n) => n.trim()) };
+    const payload = { title, status, names: names.filter((n) => n.trim()) };
     try {
       if (guest?.id) {
         await updateGuest(guest.id, payload);
@@ -74,6 +71,15 @@ export function GuestFormModal({ open, onClose, onSave, guest }: Props) {
             placeholder="Título da família ou nome"
             required
           />
+          <select
+            value={status}
+            onChange={(e) => setStatus(Number(e.target.value))}
+          >
+            <option value="1">Pendente</option>
+            <option value="2">Confirmado</option>
+            <option value="3">Recusado</option>
+            <option value="4">Presente no Evento</option>
+          </select>
           <label>Nomes:</label>
           {names.map((name, i) => (
             <div key={i} className="name-input">

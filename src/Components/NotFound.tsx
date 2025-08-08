@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-export default function NotFound() {
+export function NotFound() {
   useEffect(() => {
     document.title = '404 - Página não encontrada';
   }, []);

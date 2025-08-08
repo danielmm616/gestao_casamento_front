@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import './GuestAtParty.css';
-import logo from '../../assets/logo.png';
+import { LogoHeader } from '../../Components';
 
 export function EnjoyParty() {
   useEffect(() => {
@@ -9,14 +9,7 @@ export function EnjoyParty() {
 
   return (
     <div className="enjoy-party-container">
-      <div style={{ width: '100%', textAlign: 'center' }}>
-        <img
-          className="guest-response-image"
-          src={logo}
-          alt={`logo.png`}
-          style={{ maxWidth: '90%', maxHeight: '150px', margin: '0 auto' }}
-        />
-      </div>
+      <LogoHeader />
 
       <h3>🎉 Você já entrou! 🚪✨</h3>
 

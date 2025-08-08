@@ -1,13 +1,14 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { GuestResponse } from './pages/Guest/GuestResponse';
-import { QrCodePage } from './pages/Guest/QrCodePage';
-import { RejectedPage } from './pages/Guest/RejectedResponse';
-import ScannerPage from './pages/Guest/ScannerPage';
-import NotFound from './Components/NotFound';
-import { EnjoyParty } from './pages/Guest/GuestAtParty';
-import { LoginPage } from './pages/Admin/LoginPage';
-import { AdminPanel } from './pages/Admin/AdminPanel';
-import { PrivateRoute } from './Components/PrivateRoute';
+
+import { NotFound, PrivateRoute } from './Components';
+import {
+  EnjoyParty,
+  GuestResponse,
+  QrCodePage,
+  RejectedPage,
+  ScannerPage,
+} from './pages/Guest';
+import { AdminPanel, LoginPage } from './pages/Admin';
 
 export default function Router() {
   return (

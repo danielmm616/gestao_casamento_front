@@ -1,0 +1,11 @@
+.guest-names-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.guest-names-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}

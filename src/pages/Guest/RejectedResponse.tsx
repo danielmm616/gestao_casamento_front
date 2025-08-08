@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import './RejectedResponse.css';
-import logo from '../../assets/logo.png';
+import { LogoHeader } from '../../Components';
 
 export function RejectedPage() {
   useEffect(() => {
@@ -9,14 +9,8 @@ export function RejectedPage() {
 
   return (
     <div className="rejected-container">
-      <div style={{ width: '100%', textAlign: 'center' }}>
-        <img
-          className="guest-response-image"
-          src={logo}
-          alt={`logo.png`}
-          style={{ maxWidth: '90%', maxHeight: '150px', margin: '0 auto' }}
-        />
-      </div>
+      <LogoHeader />
+
       <p>Sentiremos sua falta 💖, mas agradecemos por avisar!</p>
       <p>
         Sabemos que imprevistos acontecem, e apesar de não poder estar conosco

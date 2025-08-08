@@ -1,0 +1,57 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 340px;
+}
+
+.close-button {
+  margin-top: 1rem;
+  background-color: #ccc;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.copy-button {
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 40px;
+}
+
+.copy-button:hover {
+  background-color: #f2c64e;
+  color: white;
+  border-color: #f2c64e;
+}
+
+.close-button {
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 40px;
+}
+
+.close-button:hover {
+  background-color: #f2c64e;
+  color: white;
+  border-color: #f2c64e;
+}

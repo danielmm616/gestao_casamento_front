@@ -1,20 +1,46 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from 'react';
-import { getGuests, deleteGuest, guestStatusMap } from '../../services/api';
-import { GuestFormModal } from '../../Components/GuestFormModal';
-import { ConfirmDeleteModal } from '../../Components/ConfirmDeleteModal';
+import {
+  getGuests,
+  deleteGuest,
+  guestStatusMap,
+  type IGuest,
+} from '../../services/api';
+import { useNavigate } from 'react-router-dom';
 import { Eye, Pencil, Trash2, PlusCircle } from 'lucide-react';
 import './AdminPanel.css';
 import logo from '../../assets/logo.png';
+import {
+  ConfirmDeleteModal,
+  GuestFormModal,
+  GuestViewModal,
+} from '../../Components';
 
 export function AdminPanel() {
-  const [guests, setGuests] = useState<any[]>([]);
+  const [guests, setGuests] = useState<IGuest[]>([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
-  const [editingGuest, setEditingGuest] = useState<any | null>(null);
+  const [editingGuest, setEditingGuest] = useState<IGuest | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [guestToDelete, setGuestToDelete] = useState<any | null>(null);
-  // const [viewGuest, setViewGuest] = useState<any | null>(null);
+  const [guestToDelete, setGuestToDelete] = useState<IGuest | null>(null);
+  const [showGuestDetail, setShowGuestDetail] = useState<boolean>(false);
+  const [viewGuest, setViewGuest] = useState<IGuest | null>(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
+
+  const removeAccents = (str: string) =>
+    str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+  const filteredGuests = guests.filter(
+    (guest) =>
+      removeAccents(guest.title.toLowerCase()).includes(
+        removeAccents(searchTerm.toLowerCase()),
+      ) ||
+      guest.names.some((name: string) =>
+        removeAccents(name.toLowerCase()).includes(
+          removeAccents(searchTerm.toLowerCase()),
+        ),
+      ),
+  );
 
   useEffect(() => {
     document.title = 'D&R | Painel Admin';
@@ -30,6 +56,11 @@ export function AdminPanel() {
     } finally {
       setLoading(false);
     }
+  }
+
+  function logout() {
+    localStorage.removeItem('token');
+    navigate('/admin/login');
   }
 
   return (
@@ -49,9 +80,18 @@ export function AdminPanel() {
       </div>
       <div className="admin-header">
         <h2>Painel do Admin</h2>
+        <input
+          type="text"
+          placeholder="Buscar convidado..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="search-input"
+        />
         <p>
           Total de Convidados:{' '}
-          {guests?.map((g) => g.names.length).reduce((a, b) => a + b, 0)}
+          {filteredGuests
+            ?.map((g) => g.names.length)
+            .reduce((a, b) => a + b, 0)}
         </p>
         <button
           className="admin-add-button"
@@ -68,7 +108,7 @@ export function AdminPanel() {
         <p>Carregando...</p>
       ) : (
         <ul className="guest-list">
-          {guests.map((guest) => (
+          {filteredGuests.map((guest) => (
             <li className="guest-item" key={guest.id}>
               <div className="guest-info">
                 <strong>{guest.title}</strong>
@@ -79,7 +119,10 @@ export function AdminPanel() {
                 <button
                   className="icon-button"
                   title="Ver detalhes"
-                  onClick={() => alert(JSON.stringify(guest, null, 2))} // Substitua por modal futuramente
+                  onClick={() => {
+                    setViewGuest(guest);
+                    setShowGuestDetail(true);
+                  }}
                 >
                   <Eye size={15} />
                 </button>
@@ -108,6 +151,11 @@ export function AdminPanel() {
           ))}
         </ul>
       )}
+      <div>
+        <button onClick={logout} className="logout-button">
+          Logout
+        </button>
+      </div>
       <GuestFormModal
         open={showModal}
         onClose={() => setShowModal(false)}
@@ -129,6 +177,11 @@ export function AdminPanel() {
           }
         }}
         title={guestToDelete?.title}
+      />
+      <GuestViewModal
+        open={showGuestDetail}
+        guest={viewGuest}
+        onClose={() => setViewGuest(null)}
       />
     </div>
   );

@@ -1,15 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getGuest, GuestStatus, respondGuest } from '../../services/api';
+import {
+  getGuest,
+  GuestStatus,
+  respondGuest,
+  type IGuest,
+} from '../../services/api';
 import './GuestResponse.css';
-import { CalendarCheck, MapPin, User } from 'lucide-react';
-import logo from '../../assets/logo.png';
+import { CalendarCheck, MapPin } from 'lucide-react';
+import { GuestNamesList, LogoHeader } from '../../Components';
 
 export function GuestResponse() {
   const { id } = useParams();
   const navigate = useNavigate();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [guest, setGuest] = useState<any>(null);
+  const [guest, setGuest] = useState<IGuest | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -43,24 +47,11 @@ export function GuestResponse() {
 
   return (
     <div className="guest-response-container">
-      <div style={{ width: '100%', textAlign: 'center' }}>
-        <img
-          className="guest-response-image"
-          src={logo}
-          alt={`logo.png`}
-          style={{ maxWidth: '90%', maxHeight: '150px', margin: '0 auto' }}
-        />
-      </div>
+      <LogoHeader />
+
       <div>
         <p className="guest-response-names">Convite recepção</p>
-        <ul className="space-y-1">
-          {guest.names.map((name: string, i: number) => (
-            <li key={i} className="flex items-center gap-2">
-              <User size={16} className="text-gray-500" />
-              <span>{name}</span>
-            </li>
-          ))}
-        </ul>
+        <GuestNamesList names={guest.names} />
       </div>
       <div>
         <div className="guest-response-date">
