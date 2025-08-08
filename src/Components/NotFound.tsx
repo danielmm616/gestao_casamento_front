@@ -14,10 +14,11 @@ export default function NotFound() {
         alignItems: 'center',
         fontFamily: 'sans-serif',
         flexDirection: 'column',
+        textAlign: 'center',
       }}
     >
-      <h1>404 - Página não encontrada ;(</h1>
-      <p>
+      <h1>404 - Página não encontrada 🤔</h1>
+      <p style={{ fontWeight: 'bold' }}>
         Você está perdido... Entre em contato com Daniel Morais para encontrar
         seu convite.
       </p>
