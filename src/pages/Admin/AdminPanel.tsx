@@ -8,11 +8,11 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { Eye, Pencil, Trash2, PlusCircle } from 'lucide-react';
 import './AdminPanel.css';
-import logo from '../../assets/logo.png';
 import {
   ConfirmDeleteModal,
   GuestFormModal,
   GuestViewModal,
+  LogoHeader,
 } from '../../Components';
 
 export function AdminPanel() {
@@ -65,19 +65,7 @@ export function AdminPanel() {
 
   return (
     <div className="admin-panel">
-      <div style={{ width: '100%', textAlign: 'center' }}>
-        <img
-          className="guest-response-image"
-          src={logo}
-          alt={`logo.png`}
-          style={{
-            maxWidth: '90%',
-            maxHeight: '150px',
-            margin: '0 auto',
-            paddingTop: '1rem',
-          }}
-        />
-      </div>
+      <LogoHeader />
       <div className="admin-header">
         <h2>Painel do Admin</h2>
         <input

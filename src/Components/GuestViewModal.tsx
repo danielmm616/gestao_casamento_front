@@ -1,4 +1,5 @@
 import { guestStatusMap, type IGuest } from '../services/api';
+import { formatCellphone, generateWhatsAppInvite } from '../utils';
 import { GuestNamesList } from './GuestNamesList';
 import './GuestViewModal.css';
 import { Copy, Link } from 'lucide-react';
@@ -13,6 +14,13 @@ interface GuestViewModalProps {
 export function GuestViewModal({ open, onClose, guest }: GuestViewModalProps) {
   if (!open || !guest) return null;
   const linkDoConvite = `${window.location.origin}/guest/${guest.id}`;
+  const whatsAppMessage = `Sua presença é muito importante para nós no nosso grande dia. Por favor, confirme sua presença clicando nesse link: ${linkDoConvite} 🎉`;
+
+  const inviteWhatsAppUrl = generateWhatsAppInvite(
+    guest.cellphone,
+    whatsAppMessage,
+  );
+
   const handleCopy = () => {
     navigator.clipboard.writeText(linkDoConvite);
     toast.success('Link copiado!');
@@ -34,7 +42,7 @@ export function GuestViewModal({ open, onClose, guest }: GuestViewModalProps) {
           }}
         >
           <p style={{ margin: '0', padding: '0' }}>
-            <strong>Convidados:</strong>
+            <strong> {guest.names.length} Convidados:</strong>
           </p>
           <GuestNamesList names={guest.names} />
         </div>
@@ -55,6 +63,23 @@ export function GuestViewModal({ open, onClose, guest }: GuestViewModalProps) {
               <Copy size={15} /> Copiar Link
             </button>
           </div>
+        </div>
+
+        <div>
+          <p>
+            <strong>Telefone:</strong>{' '}
+            {guest.cellphone ? formatCellphone(guest.cellphone) : ''}
+          </p>
+          <p>
+            <strong>WhatsApp:</strong>{' '}
+            <a
+              href={inviteWhatsAppUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Enviar convite
+            </a>
+          </p>
         </div>
 
         <button className="close-button" onClick={onClose}>

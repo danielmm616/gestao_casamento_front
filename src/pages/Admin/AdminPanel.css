@@ -11,6 +11,7 @@
   flex-direction: column;
   align-items: center;
   height: 750px;
+  padding-top: 25px;
 }
 
 .admin-panel button {
@@ -21,9 +22,10 @@
 .guest-list {
   list-style: none;
   width: 300px;
-  height: 300px; /* altura máxima que você deseja */
-  overflow-y: auto; /* ativa o scroll vertical quando passar do limite */
+  height: 300px;
+  overflow-y: auto;
   padding-right: 0.5rem;
+  background-color: #f7f5f1;
 }
 
 .guest-item {
@@ -100,4 +102,9 @@
   border-radius: 4px;
   background-color: #e6e2df;
   color: #333;
+}
+
+.admin-header h2 {
+  padding-top: 0;
+  margin-top: 0;
 }

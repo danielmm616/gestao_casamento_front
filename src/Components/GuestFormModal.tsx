@@ -6,6 +6,8 @@ import {
   type IGuest,
 } from '../services/api';
 import './GuestFormModal.css';
+import MaskedInput from 'react-text-mask';
+import { formatCellphone } from '../utils';
 
 type Props = {
   open: boolean;
@@ -17,23 +19,49 @@ type Props = {
 export function GuestFormModal({ open, onClose, onSave, guest }: Props) {
   const [title, setTitle] = useState('');
   const [names, setNames] = useState<string[]>(['']);
+  const [cellphone, setCellphone] = useState('');
   const [status, setStatus] = useState(GuestStatus.PENDING);
+
+  const cellphoneMask = [
+    '(',
+    /[1-9]/,
+    /\d/,
+    ')',
+    ' ',
+    /\d/,
+    /\d/,
+    /\d/,
+    /\d/,
+    /\d/,
+    '-',
+    /\d/,
+    /\d/,
+    /\d/,
+    /\d/,
+  ];
 
   useEffect(() => {
     if (guest) {
       setTitle(guest.title);
       setNames(guest.names);
       setStatus(guest.status);
+      setCellphone(guest.cellphone ? formatCellphone(guest.cellphone) : '');
     } else {
       setTitle('');
       setNames(['']);
       setStatus(GuestStatus.PENDING);
+      setCellphone('');
     }
   }, [guest, open]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const payload = { title, status, names: names.filter((n) => n.trim()) };
+    const payload = {
+      title,
+      status,
+      names: names.filter((n) => n.trim()),
+      cellphone,
+    };
     try {
       if (guest?.id) {
         await updateGuest(guest.id, payload);
@@ -69,6 +97,18 @@ export function GuestFormModal({ open, onClose, onSave, guest }: Props) {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Título da família ou nome"
+            required
+          />
+          <MaskedInput
+            key={open ? 'open' : 'closed'}
+            mask={cellphoneMask}
+            placeholder="(99) 99999-9999"
+            value={cellphone}
+            onChange={(e) => {
+              const onlyNumbers = e.target.value.replace(/\D/g, '');
+              setCellphone(onlyNumbers);
+            }}
+            guide={false}
             required
           />
           <select

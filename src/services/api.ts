@@ -119,6 +119,7 @@ export interface IGuest {
   names: string[];
   quantity: number;
   status: number;
+  cellphone: string;
   createdAt: string;
   updatedAt: string;
   qrCode?: string;

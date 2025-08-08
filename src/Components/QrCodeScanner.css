@@ -39,8 +39,8 @@
 
 .qr-result-card {
   width: 70%;
-  max-width: 400px; /* Define um limite de largura */
-  margin: 1.5rem auto; /* Centraliza horizontalmente */
+  max-width: 400px;
+  margin: 1.5rem auto;
   background-color: #ffffff;
   border-radius: 12px;
   padding: 1.5rem;
