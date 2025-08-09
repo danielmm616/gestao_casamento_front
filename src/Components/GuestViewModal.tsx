@@ -4,7 +4,7 @@ import { GuestNamesList } from './GuestNamesList';
 import './GuestViewModal.css';
 import { Copy, Link } from 'lucide-react';
 import { toast } from 'sonner';
-import WhatsAppIcon from '../assets/whatsapp.svg';
+import WhatsAppIcon from '../assets/whatsapp.png';
 
 interface GuestViewModalProps {
   open: boolean;
