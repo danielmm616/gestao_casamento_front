@@ -1,17 +1,15 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
 
-// Cria instância do axios
+const apiUrl = import.meta.env.VITE_API_URL;
 const api = axios.create({
-  baseURL: 'https://gestaocasamento-production.up.railway.app/api',
+  baseURL: apiUrl,
 });
 
-// Aplica retry automático para erros temporários
 axiosRetry(api, {
-  retries: 2, // total de tentativas (original + 2 repetições)
+  retries: 2,
   retryDelay: (retryCount) => {
-    return retryCount * 1000; // 1s na 1ª tentativa, 2s na 2ª...
+    return retryCount * 1000;
   },
   retryCondition: (error) => {
     const data = error.response?.data as { message?: string };
@@ -30,8 +28,6 @@ axiosRetry(api, {
   },
 });
 
-// --- Funções da API ---
-
 export const getGuest = (id: string) => api.get(`/guests/${id}`);
 
 export const respondGuest = (id: string, confirmed: number) =>
@@ -44,6 +40,7 @@ export const confirmPresenceAtEvent = async (id: string) => {
       error: false,
       data: response.data,
     };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error('Erro ao confirmar presença:', error);
     return {
@@ -55,7 +52,6 @@ export const confirmPresenceAtEvent = async (id: string) => {
   }
 };
 
-// Admin API calls
 export const loginAdmin = (email: string, password: string) =>
   api.post('/admin/login', { email, password });
 
@@ -76,12 +72,12 @@ export const getGuests = async () => {
   }
 };
 
-export const createGuest = (guestData: any) =>
+export const createGuest = (guestData: ICreateGuest) =>
   api.post('/guests', guestData, {
     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
   });
 
-export const updateGuest = (id: string, guestData: any) =>
+export const updateGuest = (id: string, guestData: ICreateGuest) =>
   api.put(`/guests/${id}`, guestData, {
     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
   });
@@ -90,8 +86,6 @@ export const deleteGuest = (id: string) =>
   api.delete(`/guests/${id}`, {
     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
   });
-
-// --- Constantes de Tipo ---
 
 export const GuestType = {
   INDIVIDUAL: 1,
@@ -123,4 +117,11 @@ export interface IGuest {
   createdAt: string;
   updatedAt: string;
   qrCode?: string;
+}
+
+interface ICreateGuest {
+  title: string;
+  names: string[];
+  status: number;
+  cellphone: string;
 }

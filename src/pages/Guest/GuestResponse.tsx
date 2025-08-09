@@ -25,7 +25,9 @@ export function GuestResponse() {
         if (res.data?.status === GuestStatus.DECLINED)
           navigate('/guest-info/rejected');
         if (res.data?.status === GuestStatus.CONFIRMED)
-          navigate('/guest-info/qr', { state: { qrCode: res.data.qrCode } });
+          navigate(`/guest-info/${id}/qr`, {
+            state: { qrCode: res.data.qrCode },
+          });
         if (res.data?.status === GuestStatus.PRESENT_AT_EVENT)
           navigate('/guest-info/enjoy');
         setGuest(res.data);

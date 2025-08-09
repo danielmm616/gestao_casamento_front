@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import jsQR from 'jsqr';
 import './QrCodeScanner.css';
-import { confirmPresenceAtEvent } from '../services/api';
+import { confirmPresenceAtEvent, getGuest } from '../services/api';
 import { GuestNamesList } from './GuestNamesList';
 import { LogoHeader } from './LogoHeader';
 
@@ -44,15 +44,32 @@ export function QRCodeReaderJSQR() {
                     const data = JSON.parse(code.data);
 
                     const response = await confirmPresenceAtEvent(data.id);
+                    console.log(
+                      'Response from confirmPresenceAtEvent:',
+                      response,
+                    );
 
-                    setScannedData({
-                      ...data,
-                      status: response.error ? 'error' : 'success',
-                      message:
-                        response.data?.message ||
-                        response.data?.error ||
-                        'Erro desconhecido',
-                    });
+                    try {
+                      const guest = await getGuest(data.id);
+                      setScannedData({
+                        ...guest.data,
+                        status: response.error ? 'error' : 'success',
+                        message:
+                          response.data?.message ||
+                          response.data?.error ||
+                          'Erro desconhecido. Tente novamente.',
+                      });
+                    } catch (error) {
+                      console.error('Erro ao obter convidado:', error);
+                      setScannedData({
+                        ...data,
+                        status: response.error ? 'error' : 'success',
+                        message:
+                          response.data?.message ||
+                          response.data?.error ||
+                          'Erro desconhecido. Tente novamente.',
+                      });
+                    }
 
                     stopCamera();
                     return;

@@ -4,6 +4,7 @@ import { GuestNamesList } from './GuestNamesList';
 import './GuestViewModal.css';
 import { Copy, Link } from 'lucide-react';
 import { toast } from 'sonner';
+import WhatsAppIcon from '../assets/whatsapp.svg';
 
 interface GuestViewModalProps {
   open: boolean;
@@ -70,16 +71,21 @@ export function GuestViewModal({ open, onClose, guest }: GuestViewModalProps) {
             <strong>Telefone:</strong>{' '}
             {guest.cellphone ? formatCellphone(guest.cellphone) : ''}
           </p>
-          <p>
-            <strong>WhatsApp:</strong>{' '}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+            <img
+              src={WhatsAppIcon}
+              alt="WhatsApp"
+              style={{ width: '30px', height: '30px' }}
+            />
             <a
               href={inviteWhatsAppUrl}
               target="_blank"
               rel="noopener noreferrer"
+              style={{ textDecoration: 'underline', fontWeight: 'bold' }}
             >
               Enviar convite
             </a>
-          </p>
+          </div>
         </div>
 
         <button className="close-button" onClick={onClose}>
