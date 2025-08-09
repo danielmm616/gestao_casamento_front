@@ -38,7 +38,9 @@ export function GuestResponse() {
   const handleResponse = async (confirmed: number) => {
     const response = await respondGuest(id!, confirmed);
     if (confirmed === GuestStatus.CONFIRMED) {
-      navigate('/guest-info/qr', { state: { qrCode: response.data.qrCode } });
+      navigate(`/guest-info/${id}/qr`, {
+        state: { qrCode: response.data.qrCode },
+      });
     } else {
       navigate('/guest-info/rejected');
     }
