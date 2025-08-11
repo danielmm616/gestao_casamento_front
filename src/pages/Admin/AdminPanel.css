@@ -53,6 +53,7 @@
   align-items: center;
   gap: 0.5rem;
   transition: background-color 0.3s ease;
+  font-size: 14px;
 }
 
 .admin-add-button:hover {
@@ -107,4 +108,10 @@
 .admin-header h2 {
   padding-top: 0;
   margin-top: 0;
+}
+
+.admin-header-actions {
+  display: flex;
+  max-width: 90%;
+  gap: 10px;
 }

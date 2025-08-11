@@ -6,7 +6,7 @@ import {
   type IGuest,
 } from '../../services/api';
 import { useNavigate } from 'react-router-dom';
-import { Eye, Pencil, Trash2, PlusCircle } from 'lucide-react';
+import { Eye, Pencil, Trash2, PlusCircle, QrCode } from 'lucide-react';
 import './AdminPanel.css';
 import {
   ConfirmDeleteModal,
@@ -81,16 +81,25 @@ export function AdminPanel() {
             ?.map((g) => g.names.length)
             .reduce((a, b) => a + b, 0)}
         </p>
-        <button
-          className="admin-add-button"
-          onClick={() => {
-            setEditingGuest(null);
-            setShowModal(true);
-          }}
-        >
-          <PlusCircle size={18} />
-          {'      '}Novo Convidado
-        </button>
+        <div className="admin-header-actions">
+          <button
+            className="admin-add-button"
+            onClick={() => {
+              setEditingGuest(null);
+              setShowModal(true);
+            }}
+          >
+            <PlusCircle size={30} />
+            {'      '}Novo Convidado
+          </button>
+          <button
+            className="admin-add-button"
+            onClick={() => navigate('/guest-info/scanner')}
+          >
+            <QrCode size={30} />
+            {'      '}Scan Convidado
+          </button>
+        </div>
       </div>
       {loading ? (
         <p>Carregando...</p>
