@@ -41,7 +41,10 @@ export function QRCodeReaderJSQR() {
 
                 if (code) {
                   try {
-                    const data = JSON.parse(code.data);
+                    const stringfiedData = code.data
+                      .split('payload=')
+                      .at(-1) as string;
+                    const data = JSON.parse(stringfiedData);
 
                     const response = await confirmPresenceAtEvent(data.id);
                     console.log(
