@@ -42,7 +42,7 @@ export function QrCodePage() {
 
       <div className="qr-code-content">
         <h3 style={{ margin: '0' }}>Obrigado pela confirmação! ✨</h3>
-        <img src={qrCode} alt="QR Code" />
+        <img src={qrCode} alt="QR Code" style={{ maxWidth: '100%' }} />
         <div className="qr-code-download">
           <ImageDown />
           <a
