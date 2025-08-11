@@ -44,7 +44,7 @@ export function QRCodeReaderJSQR() {
                     const stringfiedData = code.data
                       .split('payload=')
                       .at(-1) as string;
-                    const data = JSON.parse(stringfiedData);
+                    const data = JSON.parse(atob(stringfiedData));
 
                     const response = await confirmPresenceAtEvent(data.id);
                     console.log(
