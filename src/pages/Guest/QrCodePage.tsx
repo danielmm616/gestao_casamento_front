@@ -24,11 +24,9 @@ export function QrCodePage() {
     } else {
       getGuest(id)
         .then((res) => {
-          if (res.data?.status === GuestStatus.CONFIRMED) setGuest(res.data);
-          if (res.data?.status === GuestStatus.DECLINED)
-            navigate('/guest-info/rejected');
-          if (res.data?.status === GuestStatus.PRESENT_AT_EVENT)
-            navigate('/guest-info/enjoy');
+          if (res.data?.status !== GuestStatus.CONFIRMED)
+            navigate(`/guest/${id}`);
+          setGuest(res.data);
         })
         .finally(() => setLoading(false));
     }

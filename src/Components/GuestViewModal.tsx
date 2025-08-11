@@ -2,7 +2,7 @@ import { guestStatusMap, type IGuest } from '../services/api';
 import { formatCellphone, generateWhatsAppInvite } from '../utils';
 import { GuestNamesList } from './GuestNamesList';
 import './GuestViewModal.css';
-import { Copy, Link } from 'lucide-react';
+import { Copy } from 'lucide-react';
 import { toast } from 'sonner';
 import WhatsAppIcon from '../assets/whatsapp.png';
 
@@ -24,7 +24,7 @@ export function GuestViewModal({ open, onClose, guest }: GuestViewModalProps) {
 
   const handleCopy = () => {
     navigator.clipboard.writeText(linkDoConvite);
-    toast.success('Link copiado!');
+    toast.success('Link do convite copiado!');
   };
 
   return (
@@ -50,28 +50,13 @@ export function GuestViewModal({ open, onClose, guest }: GuestViewModalProps) {
         <p>
           <strong>Status:</strong> {guestStatusMap.get(guest.status)}
         </p>
+        <p>
+          <strong>Telefone:</strong>{' '}
+          {guest.cellphone ? formatCellphone(guest.cellphone) : ''}
+        </p>
 
         <div className="link-container">
           <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-            <a
-              href={linkDoConvite}
-              target="_blank"
-              style={{ fontWeight: 'bold', textDecoration: 'underline' }}
-            >
-              <Link size={15} /> Link do convite
-            </a>
-            <button onClick={handleCopy} className="copy-button">
-              <Copy size={15} /> Copiar Link
-            </button>
-          </div>
-        </div>
-
-        <div>
-          <p>
-            <strong>Telefone:</strong>{' '}
-            {guest.cellphone ? formatCellphone(guest.cellphone) : ''}
-          </p>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
             <img
               src={WhatsAppIcon}
               alt="WhatsApp"
@@ -85,6 +70,9 @@ export function GuestViewModal({ open, onClose, guest }: GuestViewModalProps) {
             >
               Enviar convite
             </a>
+            <button onClick={handleCopy} className="copy-button">
+              <Copy size={15} /> Copiar Link
+            </button>
           </div>
         </div>
 

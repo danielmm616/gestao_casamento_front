@@ -28,10 +28,14 @@ axiosRetry(api, {
   },
 });
 
-export const getGuest = (id: string) => api.get(`/guests/${id}`);
+export const getGuest = (id: string) =>
+  api.get(`/guests/${id}?inviteUrl=${window.location.origin}/guest/${id}`);
 
 export const respondGuest = (id: string, confirmed: number) =>
-  api.post(`/guests/respond/${id}`, { confirmed });
+  api.post(`/guests/respond/${id}`, {
+    confirmed,
+    inviteUrl: `${window.location.origin}/guest/${id}`,
+  });
 
 export const confirmPresenceAtEvent = async (id: string) => {
   try {

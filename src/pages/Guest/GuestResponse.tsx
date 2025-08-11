@@ -9,6 +9,7 @@ import {
 import './GuestResponse.css';
 import { CalendarCheck, MapPin } from 'lucide-react';
 import { GuestNamesList, LogoHeader } from '../../Components';
+import { toast } from 'sonner';
 
 export function GuestResponse() {
   const { id } = useParams();
@@ -38,6 +39,7 @@ export function GuestResponse() {
   const handleResponse = async (confirmed: number) => {
     const response = await respondGuest(id!, confirmed);
     if (confirmed === GuestStatus.CONFIRMED) {
+      toast.success('Convite confirmado!');
       navigate(`/guest-info/${id}/qr`, {
         state: { qrCode: response.data.qrCode },
       });

@@ -14,6 +14,7 @@ import {
   GuestViewModal,
   LogoHeader,
 } from '../../Components';
+import { toast } from 'sonner';
 
 export function AdminPanel() {
   const [guests, setGuests] = useState<IGuest[]>([]);
@@ -168,6 +169,7 @@ export function AdminPanel() {
         onConfirm={async () => {
           if (guestToDelete?.id) {
             await deleteGuest(guestToDelete.id);
+            toast.info('Convite excluído!');
             await loadGuests();
             setShowDeleteModal(false);
             setGuestToDelete(null);

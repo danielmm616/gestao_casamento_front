@@ -8,6 +8,7 @@ import {
 import './GuestFormModal.css';
 import MaskedInput from 'react-text-mask';
 import { formatCellphone } from '../utils';
+import { toast } from 'sonner';
 
 type Props = {
   open: boolean;
@@ -65,8 +66,10 @@ export function GuestFormModal({ open, onClose, onSave, guest }: Props) {
     try {
       if (guest?.id) {
         await updateGuest(guest.id, payload);
+        toast.success('Convite atualizado!');
       } else {
         await createGuest(payload);
+        toast.success('Convite criado!');
       }
       onSave();
       onClose();
