@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   createGuest,
   GuestStatus,
@@ -22,6 +22,9 @@ export function GuestFormModal({ open, onClose, onSave, guest }: Props) {
   const [names, setNames] = useState<string[]>(['']);
   const [cellphone, setCellphone] = useState('');
   const [status, setStatus] = useState(GuestStatus.PENDING);
+  const [addedIndex, setAddedIndex] = useState<number | null>(null);
+  const nameInputsRef = useRef<(HTMLInputElement | null)[]>([]);
+  const titleRef = useRef<HTMLInputElement | null>(null);
 
   const cellphoneMask = [
     '(',
@@ -42,6 +45,8 @@ export function GuestFormModal({ open, onClose, onSave, guest }: Props) {
   ];
 
   useEffect(() => {
+    if (!open) return;
+    titleRef.current?.focus();
     if (guest) {
       setTitle(guest.title);
       setNames(guest.names);
@@ -54,6 +59,20 @@ export function GuestFormModal({ open, onClose, onSave, guest }: Props) {
       setCellphone('');
     }
   }, [guest, open]);
+
+  useEffect(() => {
+    if (addedIndex === null) return;
+
+    const raf = requestAnimationFrame(() => {
+      const input = nameInputsRef.current[addedIndex];
+      if (input) {
+        input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        input.focus();
+      }
+    });
+
+    return () => cancelAnimationFrame(raf);
+  }, [addedIndex]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -84,7 +103,11 @@ export function GuestFormModal({ open, onClose, onSave, guest }: Props) {
     setNames(updated);
   };
 
-  const addName = () => setNames([...names, '']);
+  const addName = () => {
+    const newIndex = names.length;
+    setNames((prev) => [...prev, '']);
+    setAddedIndex(newIndex);
+  };
   const removeName = (i: number) =>
     setNames(names.filter((_, idx) => idx !== i));
 
@@ -97,6 +120,7 @@ export function GuestFormModal({ open, onClose, onSave, guest }: Props) {
         <form onSubmit={handleSubmit} className="formStyle">
           <label>Titulo:</label>
           <input
+            ref={titleRef}
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Título da família ou nome"
@@ -124,21 +148,26 @@ export function GuestFormModal({ open, onClose, onSave, guest }: Props) {
             <option value="4">Presente no Evento</option>
           </select>
           <label>Nomes:</label>
-          {names.map((name, i) => (
-            <div key={i} className="name-input">
-              <input
-                value={name}
-                onChange={(e) => handleNameChange(i, e.target.value)}
-                required
-                placeholder="Nome do convidado"
-              />
-              {names.length > 1 && (
-                <button type="button" onClick={() => removeName(i)}>
-                  X
-                </button>
-              )}
-            </div>
-          ))}
+          <div className="name-input-list">
+            {names.map((name, i) => (
+              <div key={i} className="name-input">
+                <input
+                  ref={(el) => {
+                    nameInputsRef.current[i] = el;
+                  }}
+                  value={name}
+                  onChange={(e) => handleNameChange(i, e.target.value)}
+                  required
+                  placeholder="Nome do convidado"
+                />
+                {names.length > 1 && (
+                  <button type="button" onClick={() => removeName(i)}>
+                    X
+                  </button>
+                )}
+              </div>
+            ))}
+          </div>
           <button type="button" onClick={addName} className="form-button">
             + Adicionar nome
           </button>

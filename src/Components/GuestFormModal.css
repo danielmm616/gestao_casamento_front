@@ -59,6 +59,7 @@
   justify-content: start;
   align-items: center;
   gap: 10px;
+  height: 50px;
 }
 
 .name-input button {
@@ -78,4 +79,10 @@
   border-radius: 4px;
   background-color: #e6e2df;
   color: #333;
+}
+
+.name-input-list {
+  padding-left: 10px;
+  max-height: 220px;
+  overflow-y: auto;
 }

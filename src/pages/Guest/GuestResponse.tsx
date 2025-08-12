@@ -55,7 +55,7 @@ export function GuestResponse() {
     <div className="guest-response-container">
       <LogoHeader />
 
-      <div>
+      <div className="guest-response-header">
         <p className="guest-response-names">Convite recepção</p>
         <GuestNamesList names={guest.names} />
       </div>
