@@ -12,6 +12,7 @@ import jsPDF from 'jspdf';
 export function QrCodePage() {
   const [loading, setLoading] = useState(true);
   const { guest, setGuest } = useGuest();
+  const [showButton, setShowButton] = useState(true);
   const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -38,6 +39,9 @@ export function QrCodePage() {
     if (!containerRef.current) return;
 
     try {
+      setShowButton(false);
+      await new Promise((r) => setTimeout(r, 50));
+
       const canvas = await html2canvas(containerRef.current, { scale: 2 });
       const imgData = canvas.toDataURL('image/png');
 
@@ -56,6 +60,7 @@ export function QrCodePage() {
       });
 
       pdf.save('convite-daniel-e-rafaella.pdf');
+      setShowButton(true);
     } catch (error) {
       console.error('Erro ao gerar PDF:', error);
     }
@@ -72,12 +77,14 @@ export function QrCodePage() {
       <div className="qr-code-content">
         <h3 style={{ margin: '0' }}>Obrigado pela confirmação! ✨</h3>
         <img src={qrCode} alt="QR Code" style={{ maxWidth: '100%' }} />
-        <div className="qr-code-download">
-          <button onClick={handleDownloadPdf} className="download-button">
-            <FileDown size={22} />
-            Baixar convite
-          </button>
-        </div>
+        {showButton && (
+          <div className="qr-code-download">
+            <button onClick={handleDownloadPdf} className="download-button">
+              <FileDown size={22} />
+              Baixar convite
+            </button>
+          </div>
+        )}
         <p>
           Apresente este QR Code na entrada do salão para validar sua presença.
         </p>

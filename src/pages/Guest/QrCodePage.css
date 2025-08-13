@@ -63,3 +63,7 @@
   color: white;
   border-color: #f2c64e;
 }
+
+.ignore-in-pdf {
+  display: none;
+}
