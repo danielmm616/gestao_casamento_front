@@ -49,3 +49,17 @@
   text-decoration: underline;
   margin-left: 0.4rem;
 }
+
+.download-button {
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+}
+
+.download-button:hover {
+  background-color: #f2c64e;
+  color: white;
+  border-color: #f2c64e;
+}
