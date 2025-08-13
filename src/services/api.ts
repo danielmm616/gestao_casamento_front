@@ -91,6 +91,25 @@ export const deleteGuest = (id: string) =>
     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
   });
 
+export const validateQr = async (
+  payloadBase64: string,
+  signature: string,
+): Promise<boolean> => {
+  try {
+    if (!payloadBase64 || !signature) {
+      return false;
+    }
+    const response = await api.post('/guests/validate-invite', {
+      payloadBase64: payloadBase64,
+      signature: signature,
+    });
+    return response.data.valid;
+  } catch (error) {
+    console.error('Erro ao validar QR:', error);
+    return false;
+  }
+};
+
 export const GuestType = {
   INDIVIDUAL: 1,
   FAMILY: 2,

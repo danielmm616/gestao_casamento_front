@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import jsQR from 'jsqr';
 import './QrCodeScanner.css';
-import { confirmPresenceAtEvent, getGuest } from '../services/api';
+import { confirmPresenceAtEvent, getGuest, validateQr } from '../services/api';
 import { GuestNamesList } from './GuestNamesList';
 import { LogoHeader } from './LogoHeader';
 
@@ -10,6 +10,15 @@ export function QRCodeReaderJSQR() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [scannedData, setScannedData] = useState<any>(null);
+  const [isValidQR, setIsValidQR] = useState<boolean>(false);
+
+  const handleInvalidQR = () => {
+    setIsValidQR(false);
+    setScannedData({
+      status: 'error',
+      message: 'QR Code inválido. Código não reconhecido pelo sistema.',
+    });
+  };
 
   useEffect(() => {
     let stream: MediaStream;
@@ -38,22 +47,31 @@ export function QRCodeReaderJSQR() {
                 ctx.drawImage(videoRef.current, 0, 0, width, height);
                 const imageData = ctx.getImageData(0, 0, width, height);
                 const code = jsQR(imageData.data, width, height);
-
                 if (code) {
+                  console.log('QR Code detected:', code.data);
                   try {
-                    const stringfiedData = code.data
-                      .split('payload=')
-                      .at(-1) as string;
-                    const data = JSON.parse(atob(stringfiedData));
+                    const params = code.data.split('?payload=').at(-1) || '';
+                    const [stringfiedData, sig] = params.split('&sig=');
 
+                    if (!stringfiedData || !sig) {
+                      handleInvalidQR();
+                      return;
+                    }
+
+                    const isValid = await validateQr(stringfiedData, sig);
+
+                    if (!isValid) {
+                      handleInvalidQR();
+                      return;
+                    }
+
+                    setIsValidQR(true);
+                    const data = JSON.parse(atob(stringfiedData));
                     const response = await confirmPresenceAtEvent(data.id);
-                    console.log(
-                      'Response from confirmPresenceAtEvent:',
-                      response,
-                    );
 
                     try {
                       const guest = await getGuest(data.id);
+                      setIsValidQR(response.error ? false : true);
                       setScannedData({
                         ...guest.data,
                         status: response.error ? 'error' : 'success',
@@ -64,6 +82,7 @@ export function QRCodeReaderJSQR() {
                       });
                     } catch (error) {
                       console.error('Erro ao obter convidado:', error);
+                      setIsValidQR(false);
                       setScannedData({
                         ...data,
                         status: response.error ? 'error' : 'success',
@@ -127,15 +146,19 @@ export function QRCodeReaderJSQR() {
               <p style={{ color: 'red' }}>{scannedData.message}</p>
             )}
           </div>
-          <div className="qr-result-line">
-            <p style={{ margin: 0 }}>
-              <strong>Nomes:</strong>
-            </p>
-            <GuestNamesList names={scannedData.names} />
-          </div>
-          <div className="qr-result-line">
-            <strong>Quantidade:</strong> {scannedData.quantity}
-          </div>
+          {isValidQR && (
+            <>
+              <div className="qr-result-line">
+                <p style={{ margin: 0 }}>
+                  <strong>Nomes:</strong>
+                </p>
+                <GuestNamesList names={scannedData.names} />
+              </div>
+              <div className="qr-result-line">
+                <strong>Quantidade:</strong> {scannedData.quantity}
+              </div>
+            </>
+          )}
           <button className="qr-button" onClick={handleRestart}>
             Escanear outro QR
           </button>
