@@ -66,7 +66,7 @@ export function QRCodeReaderJSQR() {
                     }
 
                     setIsValidQR(true);
-                    const guestId = guestUrl.split('/').at(-1) || '';
+                    const guestId = guestUrl.split('/guest/').at(-1) || '';
                     const response = await confirmPresenceAtEvent(guestId);
 
                     try {
