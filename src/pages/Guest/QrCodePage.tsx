@@ -56,14 +56,14 @@ export function QrCodePage() {
 
       pdf.setTextColor(0, 0, 255);
 
-      // Local Recepção
-      pdf.textWithLink('____________________', 28, imgHeightMm - 50, {
-        url: 'https://maps.app.goo.gl/YRZa43zpsPZp9fqn7',
-      });
-
       // Local Cerimônia
       pdf.textWithLink('____________________', 28, imgHeightMm - 67, {
         url: 'https://maps.app.goo.gl/Nxthq2kcj3VSfeny7',
+      });
+
+      // Local Recepção
+      pdf.textWithLink('____________________', 28, imgHeightMm - 50, {
+        url: 'https://maps.app.goo.gl/YRZa43zpsPZp9fqn7',
       });
 
       pdf.save('convite-daniel-e-rafaella.pdf');
@@ -111,7 +111,7 @@ export function QrCodePage() {
       </div>
       <div className="qr-code-response-church-location">
         <Church />
-        <a href="https://maps.app.goo.gl/YRZa43zpsPZp9fqn7" target="_blank">
+        <a href="https://maps.app.goo.gl/Nxthq2kcj3VSfeny7" target="_blank">
           Local da cerimônia
         </a>
       </div>
