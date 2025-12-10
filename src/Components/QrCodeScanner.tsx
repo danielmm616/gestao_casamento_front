@@ -50,8 +50,7 @@ export function QRCodeReaderJSQR() {
                 if (code) {
                   console.log('QR Code detected:', code.data);
                   try {
-                    const [guestUrl, sig] =
-                      code.data.split('?sig=').at(-1) || '';
+                    const [guestUrl, sig] = code.data.split('?sig=') || '';
 
                     if (!guestUrl || !sig) {
                       handleInvalidQR();

@@ -55,11 +55,14 @@ export function QrCodePage() {
       pdf.addImage(imgData, 'PNG', 0, 0, imgWidthMm, imgHeightMm);
 
       pdf.setTextColor(0, 0, 255);
-      pdf.textWithLink('____________________', 28, imgHeightMm - 16, {
+
+      // Local Recepção
+      pdf.textWithLink('____________________', 28, imgHeightMm - 50, {
         url: 'https://maps.app.goo.gl/YRZa43zpsPZp9fqn7',
       });
 
-      pdf.textWithLink('____________________', 28, imgHeightMm - 34, {
+      // Local Cerimônia
+      pdf.textWithLink('____________________', 28, imgHeightMm - 67, {
         url: 'https://maps.app.goo.gl/Nxthq2kcj3VSfeny7',
       });
 
@@ -117,6 +120,12 @@ export function QrCodePage() {
         <a href="https://maps.app.goo.gl/YRZa43zpsPZp9fqn7" target="_blank">
           Local da recepção
         </a>
+      </div>
+      <div className="qr-code-red-note">
+        <span>
+          *Este convite é exclusivo para as pessoas nele listadas e possui QR
+          Code de uso único. Não é transferível e nem reutilizável.
+        </span>
       </div>
     </div>
   );

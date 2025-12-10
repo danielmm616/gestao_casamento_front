@@ -19,8 +19,8 @@ export function EnjoyParty() {
         mesmo!
       </p>
       <p>
-        Valeu por vir! Sua presença é mais valiosa que o Anel pra Sauron 🧙‍♂️,
-        mais animada que festa na casa do Andy 🧸, e mais brilhante que as
+        Valeu por vir! Sua presença é mais valiosa que o Um Anel pra Sauron 🧙‍♂️,
+        tão importante quanto o Woody é para o Andy 🤠, e mais brilhante que as
         lanternas da Rapunzel! 🏮
       </p>
       <p>
