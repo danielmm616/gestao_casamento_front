@@ -44,7 +44,20 @@
   height: fit-content;
 }
 
+.qr-code-response-church-location {
+  display: flex;
+  align-items: center;
+  height: fit-content;
+  margin-bottom: 0.6rem;
+}
+
 .qr-code-response-location a {
+  color: #2830be;
+  text-decoration: underline;
+  margin-left: 0.4rem;
+}
+
+.qr-code-response-church-location a {
   color: #2830be;
   text-decoration: underline;
   margin-left: 0.4rem;

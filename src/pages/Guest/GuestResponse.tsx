@@ -7,7 +7,7 @@ import {
   type IGuest,
 } from '../../services/api';
 import './GuestResponse.css';
-import { CalendarCheck, MapPin } from 'lucide-react';
+import { CalendarCheck, PartyPopper, Church } from 'lucide-react';
 import { GuestNamesList, LogoHeader } from '../../Components';
 import { toast } from 'sonner';
 
@@ -56,17 +56,26 @@ export function GuestResponse() {
       <LogoHeader />
 
       <div className="guest-response-header">
-        <p className="guest-response-names">Convite recepção</p>
+        <p className="guest-response-names">Cerimônia & Recepção</p>
         <GuestNamesList names={guest.names} />
       </div>
       <div>
         <div className="guest-response-date">
-          <CalendarCheck /> <p>30 de Janeiro de 2026</p>
+          <CalendarCheck />{' '}
+          <p>
+            30 de Janeiro de 2026 às <strong>19:30</strong>
+          </p>
         </div>
         <div className="guest-response-location">
-          <MapPin />{' '}
+          <Church />{' '}
+          <a href="https://maps.app.goo.gl/Nxthq2kcj3VSfeny7" target="_blank">
+            Local da cerimônia
+          </a>
+        </div>
+        <div className="guest-response-location">
+          <PartyPopper />{' '}
           <a href="https://maps.app.goo.gl/YRZa43zpsPZp9fqn7" target="_blank">
-            Local do evento
+            Local da recepção
           </a>
         </div>
       </div>

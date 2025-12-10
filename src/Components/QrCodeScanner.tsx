@@ -50,15 +50,15 @@ export function QRCodeReaderJSQR() {
                 if (code) {
                   console.log('QR Code detected:', code.data);
                   try {
-                    const params = code.data.split('?payload=').at(-1) || '';
-                    const [stringfiedData, sig] = params.split('&sig=');
+                    const [guestUrl, sig] =
+                      code.data.split('?sig=').at(-1) || '';
 
-                    if (!stringfiedData || !sig) {
+                    if (!guestUrl || !sig) {
                       handleInvalidQR();
                       return;
                     }
 
-                    const isValid = await validateQr(stringfiedData, sig);
+                    const isValid = await validateQr(sig);
 
                     if (!isValid) {
                       handleInvalidQR();
@@ -66,11 +66,11 @@ export function QRCodeReaderJSQR() {
                     }
 
                     setIsValidQR(true);
-                    const data = JSON.parse(atob(stringfiedData));
-                    const response = await confirmPresenceAtEvent(data.id);
+                    const guestId = guestUrl.split('/').at(-1) || '';
+                    const response = await confirmPresenceAtEvent(guestId);
 
                     try {
-                      const guest = await getGuest(data.id);
+                      const guest = await getGuest(guestId);
                       setIsValidQR(response.error ? false : true);
                       setScannedData({
                         ...guest.data,
@@ -84,7 +84,6 @@ export function QRCodeReaderJSQR() {
                       console.error('Erro ao obter convidado:', error);
                       setIsValidQR(false);
                       setScannedData({
-                        ...data,
                         status: response.error ? 'error' : 'success',
                         message:
                           response.data?.message ||

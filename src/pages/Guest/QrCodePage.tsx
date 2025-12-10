@@ -1,5 +1,5 @@
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { FileDown, CalendarCheck, MapPin } from 'lucide-react';
+import { FileDown, CalendarCheck, MapPin, Church } from 'lucide-react';
 import './QrCodePage.css';
 import { useEffect, useRef, useState } from 'react';
 import { LogoHeader } from '../../Components';
@@ -59,6 +59,10 @@ export function QrCodePage() {
         url: 'https://maps.app.goo.gl/YRZa43zpsPZp9fqn7',
       });
 
+      pdf.textWithLink('____________________', 28, imgHeightMm - 34, {
+        url: 'https://maps.app.goo.gl/Nxthq2kcj3VSfeny7',
+      });
+
       pdf.save('convite-daniel-e-rafaella.pdf');
       setShowButton(true);
     } catch (error) {
@@ -76,7 +80,11 @@ export function QrCodePage() {
 
       <div className="qr-code-content">
         <h3 style={{ margin: '0' }}>Obrigado pela confirmação! ✨</h3>
-        <img src={qrCode} alt="QR Code" style={{ maxWidth: '100%' }} />
+        <img
+          src={qrCode}
+          alt="QR Code"
+          style={{ maxWidth: '100%', minWidth: '70%' }}
+        />
         {showButton && (
           <div className="qr-code-download">
             <button onClick={handleDownloadPdf} className="download-button">
@@ -86,18 +94,28 @@ export function QrCodePage() {
           </div>
         )}
         <p>
-          Apresente este QR Code na entrada do salão para validar sua presença.
+          Apresente este QR Code na entrada do salão da recepção para entrar na
+          festa.
         </p>
       </div>
       <strong>Convidados:</strong>
       <GuestNamesList names={guest?.names} />
       <div className="qr-code-date">
-        <CalendarCheck /> <p>30 de Janeiro de 2026</p>
+        <CalendarCheck />{' '}
+        <p>
+          30 de Janeiro de 2026 às <strong>19:30</strong>
+        </p>
+      </div>
+      <div className="qr-code-response-church-location">
+        <Church />
+        <a href="https://maps.app.goo.gl/YRZa43zpsPZp9fqn7" target="_blank">
+          Local da cerimônia
+        </a>
       </div>
       <div className="qr-code-response-location">
         <MapPin />
         <a href="https://maps.app.goo.gl/YRZa43zpsPZp9fqn7" target="_blank">
-          Local do evento
+          Local da recepção
         </a>
       </div>
     </div>

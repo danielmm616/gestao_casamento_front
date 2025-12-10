@@ -91,16 +91,12 @@ export const deleteGuest = (id: string) =>
     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
   });
 
-export const validateQr = async (
-  payloadBase64: string,
-  signature: string,
-): Promise<boolean> => {
+export const validateQr = async (signature: string): Promise<boolean> => {
   try {
-    if (!payloadBase64 || !signature) {
+    if (!signature) {
       return false;
     }
     const response = await api.post('/guests/validate-invite', {
-      payloadBase64: payloadBase64,
       signature: signature,
     });
     return response.data.valid;
