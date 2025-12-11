@@ -7,7 +7,7 @@ import {
   type IGuest,
 } from '../../services/api';
 import './GuestResponse.css';
-import { CalendarCheck, PartyPopper, Church } from 'lucide-react';
+import { CalendarCheck, PartyPopper, Church, Gift } from 'lucide-react';
 import { GuestNamesList, LogoHeader } from '../../Components';
 import { toast } from 'sonner';
 
@@ -76,6 +76,15 @@ export function GuestResponse() {
           <PartyPopper />{' '}
           <a href="https://maps.app.goo.gl/YRZa43zpsPZp9fqn7" target="_blank">
             Local da recepção
+          </a>
+        </div>
+        <div className="guest-response-gift-list">
+          <Gift />{' '}
+          <a
+            href="https://www.mercadolivre.com.br/presentes/cha-de-panela-dan-e-rafa-uu7xt"
+            target="_blank"
+          >
+            Lista de presentes
           </a>
         </div>
       </div>

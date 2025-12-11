@@ -26,13 +26,14 @@ export function AdminPanel() {
   const [showGuestDetail, setShowGuestDetail] = useState<boolean>(false);
   const [viewGuest, setViewGuest] = useState<IGuest | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [statusFilter, setStatusFilter] = useState<number | null>(null);
   const navigate = useNavigate();
 
   const removeAccents = (str: string) =>
     str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
-  const filteredGuests = guests.filter(
-    (guest) =>
+  const filteredGuests = guests.filter((guest) => {
+    const matchesSearch =
       removeAccents(guest.title.toLowerCase()).includes(
         removeAccents(searchTerm.toLowerCase()),
       ) ||
@@ -40,8 +41,13 @@ export function AdminPanel() {
         removeAccents(name.toLowerCase()).includes(
           removeAccents(searchTerm.toLowerCase()),
         ),
-      ),
-  );
+      );
+
+    const matchesStatus =
+      statusFilter === null ? true : guest.status === statusFilter;
+
+    return matchesSearch && matchesStatus;
+  });
 
   useEffect(() => {
     document.title = 'D&R | Painel Admin';
@@ -100,6 +106,20 @@ export function AdminPanel() {
             <QrCode size={30} />
             {'      '}Scan Convidado
           </button>
+        </div>
+        <div className="admin-header-status-filter">
+          <select
+            value={statusFilter ?? ''}
+            onChange={(e) =>
+              setStatusFilter(e.target.value ? Number(e.target.value) : null)
+            }
+          >
+            <option value="">Todos</option>
+            <option value="1">Pendente</option>
+            <option value="2">Confirmado</option>
+            <option value="3">Recusado</option>
+            <option value="4">Presente no Evento</option>
+          </select>
         </div>
       </div>
       {loading ? (

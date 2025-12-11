@@ -27,7 +27,7 @@ function App() {
       >
         <span>Desenvolvido por</span>
         <br />
-        <span style={{ fontWeight: '700' }}>DMM Tech LTDA</span>
+        <span style={{ fontWeight: '700' }}>DMM Tech</span>
       </footer>
     </>
   );

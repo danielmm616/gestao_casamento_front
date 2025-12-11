@@ -1,5 +1,5 @@
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { FileDown, CalendarCheck, MapPin, Church } from 'lucide-react';
+import { FileDown, CalendarCheck, MapPin, Church, Gift } from 'lucide-react';
 import './QrCodePage.css';
 import { useEffect, useRef, useState } from 'react';
 import { LogoHeader } from '../../Components';
@@ -56,6 +56,11 @@ export function QrCodePage() {
 
       pdf.setTextColor(0, 0, 255);
 
+      // Lista de Presentes
+      pdf.textWithLink('____________________', 28, imgHeightMm - 85, {
+        url: 'https://www.mercadolivre.com.br/presentes/cha-de-panela-dan-e-rafa-uu7xt',
+      });
+
       // Local Cerimônia
       pdf.textWithLink('____________________', 28, imgHeightMm - 67, {
         url: 'https://maps.app.goo.gl/Nxthq2kcj3VSfeny7',
@@ -108,6 +113,15 @@ export function QrCodePage() {
         <p>
           30 de Janeiro de 2026 às <strong>19:30</strong>
         </p>
+      </div>
+      <div className="qr-code-response-church-location">
+        <Gift />
+        <a
+          href="https://www.mercadolivre.com.br/presentes/cha-de-panela-dan-e-rafa-uu7xt"
+          target="_blank"
+        >
+          Lista de presentes
+        </a>
       </div>
       <div className="qr-code-response-church-location">
         <Church />
