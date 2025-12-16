@@ -14,7 +14,7 @@ function App() {
 
       <Router />
 
-      <footer
+      {/* <footer
         style={{
           textAlign: 'center',
           marginTop: '40px',
@@ -28,7 +28,7 @@ function App() {
         <span>Desenvolvido por</span>
         <br />
         <span style={{ fontWeight: '700' }}>DMM Tech</span>
-      </footer>
+      </footer> */}
     </>
   );
 }
