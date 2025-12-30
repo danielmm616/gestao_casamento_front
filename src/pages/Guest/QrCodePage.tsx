@@ -57,17 +57,17 @@ export function QrCodePage() {
       pdf.setTextColor(0, 0, 255);
 
       // Lista de Presentes
-      pdf.textWithLink('____________________', 28, imgHeightMm - 85, {
+      pdf.textWithLink('____________________', 28, imgHeightMm - 52, {
         url: 'https://www.mercadolivre.com.br/presentes/cha-de-panela-dan-e-rafa-uu7xt',
       });
 
       // Local Cerimônia
-      pdf.textWithLink('____________________', 28, imgHeightMm - 67, {
+      pdf.textWithLink('____________________', 28, imgHeightMm - 34, {
         url: 'https://maps.app.goo.gl/Nxthq2kcj3VSfeny7',
       });
 
       // Local Recepção
-      pdf.textWithLink('____________________', 28, imgHeightMm - 50, {
+      pdf.textWithLink('____________________', 28, imgHeightMm - 17, {
         url: 'https://maps.app.goo.gl/YRZa43zpsPZp9fqn7',
       });
 
