@@ -135,12 +135,12 @@ export function QrCodePage() {
           Local da recepção
         </a>
       </div>
-      <div className="qr-code-red-note">
+      {/* <div className="qr-code-red-note">
         <span>
           *Este convite é exclusivo para as pessoas nele listadas e possui QR
           Code de uso único. Não é transferível e nem reutilizável.
         </span>
-      </div>
+      </div> */}
     </div>
   );
 }
