@@ -1,5 +1,12 @@
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { FileDown, CalendarCheck, MapPin, Church, Gift } from 'lucide-react';
+import {
+  FileDown,
+  CalendarCheck,
+  MapPin,
+  Church,
+  Gift,
+  Wine,
+} from 'lucide-react';
 import './QrCodePage.css';
 import { useEffect, useRef, useState } from 'react';
 import { LogoHeader } from '../../Components';
@@ -105,6 +112,12 @@ export function QrCodePage() {
           Apresente este QR Code na entrada do salão da recepção para entrar na
           festa.
         </p>
+        <div className="qr-code-table-number">
+          <Wine />
+          <p>
+            Nº da mesa: <strong>{guest.tableNumber}</strong>
+          </p>
+        </div>
       </div>
       <strong>Convidados:</strong>
       <GuestNamesList names={guest?.names} />

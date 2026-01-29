@@ -5,6 +5,7 @@ import './QrCodeScanner.css';
 import { confirmPresenceAtEvent, getGuest, validateQr } from '../services/api';
 import { GuestNamesList } from './GuestNamesList';
 import { LogoHeader } from './LogoHeader';
+import { Wine } from 'lucide-react';
 
 export function QRCodeReaderJSQR() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -146,6 +147,12 @@ export function QRCodeReaderJSQR() {
           </div>
           {isValidQR && (
             <>
+              <div className="qr-result-line-table-number">
+                <Wine size={20} />{' '}
+                <p>
+                  <strong>Nº da mesa:</strong> {scannedData.tableNumber}
+                </p>
+              </div>
               <div className="qr-result-line">
                 <p style={{ margin: 0 }}>
                   <strong>Nomes:</strong>
@@ -153,7 +160,7 @@ export function QRCodeReaderJSQR() {
                 <GuestNamesList names={scannedData.names} />
               </div>
               <div className="qr-result-line">
-                <strong>Quantidade:</strong> {scannedData.quantity}
+                <strong>Número de convidados:</strong> {scannedData.quantity}
               </div>
             </>
           )}

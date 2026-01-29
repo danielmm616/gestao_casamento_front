@@ -135,6 +135,7 @@ export interface IGuest {
   cellphone: string;
   createdAt: string;
   updatedAt: string;
+  tableNumber?: string;
   qrCode?: string;
 }
 

@@ -38,6 +38,18 @@
   margin-left: 0.4rem;
 }
 
+.qr-code-table-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  margin: 0 0 1rem 0;
+}
+
+.qr-code-table-number p {
+  margin: 0;
+}
+
 .qr-code-response-location {
   display: flex;
   align-items: center;
